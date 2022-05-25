@@ -6,7 +6,7 @@ skynet.start(function()
     -- TODO 启动其他服务
     -- 启动打工服务，其中第二个参数和第三个参数会透传给service/worker/init.lua脚本
     local worker1 = skynet.newservice("worker", "worker", 1)
-
+    skynet.error(worker1)
     -- 启动买猫粮服务
     local buy1 = skynet.newservice("buy", "buy", 1)
 
@@ -16,9 +16,9 @@ skynet.start(function()
     skynet.sleep(200)
     -- 停止工作
     skynet.send(worker1, "lua", "stop_work")
-
+    -- skynet.error(buy1)
     -- 买猫粮
-    skynet.send(buy1, "lua", "buy")
+    skynet.send(buy1, "lua", "buy", worker1)
 
 
     skynet.exit()
